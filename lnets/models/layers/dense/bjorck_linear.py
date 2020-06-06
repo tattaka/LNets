@@ -8,12 +8,12 @@ class BjorckLinear(DenseLinear):
     def __init__(self, in_features=1, out_features=1, bias=True, config=None):
         super(BjorckLinear, self).__init__()
         self._set_config(config)
-        self._set_network_parameters(in_features, out_features, bias, cuda=config.cuda)
+        self._set_network_parameters(in_features, out_features, bias)
 
     def forward(self, x):
         # Scale the values of the matrix to make sure the singular values are less than or equal to 1.
         if self.config.model.linear.safe_scaling:
-            scaling = get_safe_bjorck_scaling(self.weight, cuda=self.config.cuda)
+            scaling = get_safe_bjorck_scaling(self.weight)
         else:
             scaling = 1.0
 

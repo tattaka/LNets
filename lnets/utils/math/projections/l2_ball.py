@@ -66,12 +66,12 @@ def bjorck_orthonormalize(w, beta=0.5, iters=20, order=1):
 
 def get_safe_bjorck_scaling(weight, cuda=True):
     bjorck_scaling = torch.tensor([np.sqrt(weight.shape[0] * weight.shape[1])]).float()
-    bjorck_scaling = to_cuda(bjorck_scaling, cuda=cuda)
+    bjorck_scaling = bjorck_scaling.to(weight.device)
 
     return bjorck_scaling
 
 
-def project_on_l2_ball(weight, bjorck_iter, bjorck_order, bjorck_beta=0.5, cuda=True):
+def project_on_l2_ball(weight, bjorck_iter, bjorck_order, bjorck_beta=0.5):
     with torch.no_grad():
         # Run Bjorck orthonormalization procedure to project the matrices on the orthonormal matrices manifold.
         ortho_weights = bjorck_orthonormalize(weight.t(),

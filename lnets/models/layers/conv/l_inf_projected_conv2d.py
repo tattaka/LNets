@@ -29,7 +29,7 @@ class LInfProjectedConv2D(BaseConv2D):
         flattened_weights = self.conv_form_to_matrix_form(self.weight, (self.out_channels, -1))
 
         # Orthonormalize. The scaling makes sure the singular values of the matrix are constrained by 1.
-        thresholds = get_linf_projection_threshold(flattened_weights, self.config.cuda)
+        thresholds = get_linf_projection_threshold(flattened_weights)
         signs = get_weight_signs(flattened_weights)
         flattened_projected_weights = signs * torch.clamp(torch.abs(flattened_weights) - thresholds.unsqueeze(-1),
                                                           min=torch.tensor(0).float())

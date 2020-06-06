@@ -11,7 +11,7 @@ class DenseLinear(nn.Module):
     def __init__(self):
         super(DenseLinear, self).__init__()
 
-    def _set_network_parameters(self, in_features, out_features, bias=True, cuda=None):
+    def _set_network_parameters(self, in_features, out_features, bias=True):
         self.in_features = in_features
         self.out_features = out_features
 
@@ -37,7 +37,7 @@ class DenseLinear(nn.Module):
 
     def project_weights(self, proj_config):
         with torch.no_grad():
-            projected_weights = project_weights(self.weight, proj_config, self.config.cuda)
+            projected_weights = project_weights(self.weight, proj_config)
             # Override the previous weights.
             self.weight.data.copy_(projected_weights)
 

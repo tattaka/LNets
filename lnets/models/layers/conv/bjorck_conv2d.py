@@ -28,7 +28,7 @@ class BjorckConv2d(BaseConv2D):
         flattened_weights = self.conv_form_to_matrix_form(self.weight, (self.out_channels, -1))
 
         # Orthonormalize. The scaling makes sure the singular values of the matrix are constrained by 1.
-        scaling = get_safe_bjorck_scaling(flattened_weights, cuda=self.config.cuda)
+        scaling = get_safe_bjorck_scaling(flattened_weights)
         ortho_weight_flattened = bjorck_orthonormalize(flattened_weights / scaling)
 
         # Reshape back.

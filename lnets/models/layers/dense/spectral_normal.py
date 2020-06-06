@@ -14,7 +14,7 @@ class SpectralNormLinear(DenseLinear):
     def __init__(self, in_features, out_features, bias=True, config=None):
         super(SpectralNormLinear, self).__init__()
         self._set_config(config)
-        self._set_network_parameters(in_features, out_features, bias, cuda=config.cuda)
+        self._set_network_parameters(in_features, out_features, bias)
 
         with torch.no_grad():
             self.u = Parameter(torch.Tensor(out_features))

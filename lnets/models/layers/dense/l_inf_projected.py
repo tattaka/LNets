@@ -14,10 +14,10 @@ class LInfProjectedLinear(DenseLinear):
     def __init__(self, in_features, out_features, bias=True, config=None):
         super(DenseLinear, self).__init__()
         self._set_config(config)
-        self._set_network_parameters(in_features, out_features, bias, config.cuda)
+        self._set_network_parameters(in_features, out_features, bias)
 
     def forward(self, x):
-        thresholds = get_linf_projection_threshold(self.weight, self.config.cuda)
+        thresholds = get_linf_projection_threshold(self.weight)
         signs = get_weight_signs(self.weight)
         projected_weights = signs * torch.clamp(torch.abs(self.weight) - thresholds.unsqueeze(-1),
                                                 min=torch.tensor(0).float())

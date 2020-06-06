@@ -10,7 +10,7 @@ class LeNet(nn.Module):
         super(LeNet, self).__init__()
         self.config = config
 
-        self.scale = Scale(config.model.l_constant ** 0.25, config.cuda)
+        self.scale = Scale(config.model.l_constant ** 0.25)
         # Select linear layer type.
         if linear_type == "bjorck":
             conv = BjorckConv2d

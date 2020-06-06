@@ -55,7 +55,7 @@ class FullyConv2D(Architecture):
         # The first linear layer. Note the scaling layer is to have control over the Lipschitz constant of the network.
         layers.append(linear(self.channels[0], self.channels[1], kernel_size=self.kernels[0], stride=self.strides[0],
                              **self.conv_parameters))
-        layers.append(Scale(l_constant_per_layer, cuda=self.config.cuda))
+        layers.append(Scale(l_constant_per_layer))
 
         # Series of activation + linear. Control Lipsthitz constant of the network by adding the scaling layers.
         for i in range(1, len(self.channels) - 1):
@@ -76,6 +76,6 @@ class FullyConv2D(Architecture):
             # Add the linear transformations.
             layers.append(linear(int(downsampling_factor * self.channels[i]), self.channels[i+1],
                                  kernel_size=self.kernels[i], stride=self.strides[i], **self.conv_parameters))
-            layers.append(Scale(l_constant_per_layer, cuda=self.config.cuda))
+            layers.append(Scale(l_constant_per_layer))
 
         return layers

@@ -26,7 +26,7 @@ class BaseConv2D(_ConvNd):
         with torch.no_grad():
             flattened_weights = self.conv_form_to_matrix_form(self.weight, (self.out_channels, -1))
 
-            flattened_projected_weights = project_weights(flattened_weights, proj_config, cuda=self.config.cuda)
+            flattened_projected_weights = project_weights(flattened_weights, proj_config)
 
             projected_weights = self.matrix_form_to_conv_form(flattened_projected_weights, self.original_shape)
 

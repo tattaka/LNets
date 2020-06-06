@@ -47,7 +47,7 @@ class FCNet(Architecture):
         if dropout:
             layers.append(nn.Dropout(0.2))
         layers.append(self.linear(self.layer_sizes[0], self.layer_sizes[1], bias=self.use_bias, config=config))
-        layers.append(Scale(l_constant_per_layer, cuda=self.config.cuda))
+        layers.append(Scale(l_constant_per_layer))
 
         for i in range(1, len(self.layer_sizes) - 1):
             # Determine the downsampling that happens after each activation.
@@ -71,7 +71,7 @@ class FCNet(Architecture):
             layers.append(
                 self.linear(int(downsampling_factor * self.layer_sizes[i]), self.layer_sizes[i + 1], bias=self.use_bias,
                             config=config))
-            layers.append(Scale(l_constant_per_layer, cuda=self.config.cuda))
+            layers.append(Scale(l_constant_per_layer))
 
         return layers
 
